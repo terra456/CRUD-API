@@ -6,6 +6,9 @@
   "scripts": {
     "start": "nodemon",
     "build": "tsc",
+    "lint": "eslint --ext .js,.ts .",
+    "lint:write": "eslint --debug src/ --fix",
+    "format": "prettier --ignore-path .gitignore --write \"**/*.+(js|ts|json)\"",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -20,7 +23,12 @@
   "homepage": "https://github.com/terra456/CRUD-API#readme",
   "devDependencies": {
     "@types/node": "^20.3.2",
-    "nodemon": "^2.0.22",
+    "@typescript-eslint/eslint-plugin": "^5.60.1",
+    "@typescript-eslint/parser": "^5.60.1",
+    "eslint": "^8.43.0",
+    "eslint-config-prettier": "^8.8.0",
+    "nodemon": "^1.14.9",
+    "prettier": "^2.8.8",
     "ts-node": "^10.9.1",
     "typescript": "^5.1.5"
   }
