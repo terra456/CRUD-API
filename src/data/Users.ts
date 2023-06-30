@@ -1,5 +1,6 @@
 import { UUID, randomUUID } from 'crypto';
-import { UserData, UserWithoutId } from 'utils/types';
+import ErrorHandler from '../utils/ErrorHandler';
+import { RavUser, UserData, UserWithoutId } from 'utils/types';
 
 class Users {
   users: Array<UserData> = [
@@ -21,7 +22,7 @@ class Users {
       if (this.users.length > 0) {
         res(newUser);
       } else {
-        rej();
+        rej(new ErrorHandler(400, 'Error to write in database'));
       }
     });
   };
@@ -31,7 +32,7 @@ class Users {
       if (this.users.length > 0) {
         res(this.users);
       } else {
-        rej();
+        rej(new ErrorHandler(404, 'No users in database'));
       }
     });
   };
@@ -42,7 +43,7 @@ class Users {
       if (index >= 0) {
         res(this.users[index]);
       } else {
-        rej('');
+        rej(new ErrorHandler(404, `User with id ${id} not found`));
       }
     });
   };
@@ -51,19 +52,19 @@ class Users {
     return this.users.findIndex((el) => el.id === id);
   };
 
-  async update (data: UserData) {
-    return new Promise((res, rej) => {
+  async update (data: RavUser) {
+    return new Promise<UserData>((res, rej) => {
       const index = this.findById(data.id);
       if (index >= 0) {
         Object.assign(this.users[index], data);
         res(this.users[index]);
       } else {
-        rej();
+        rej(new ErrorHandler(404, `User with id ${data.id} not found`));
       }
     });
   };
 
-  async delite (id: UUID) {
+  async delite (id: string) {
     return new Promise<void>((res, rej) => {
       const index = this.findById(id);
       if (index >= 0) {

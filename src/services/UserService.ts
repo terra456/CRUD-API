@@ -1,5 +1,5 @@
 import Users from '../data/Users';
-import { UserData, UserWithoutId } from '../utils/types';
+import { RavUser, UserData, UserWithoutId } from '../utils/types';
 import ErrorHandler from '../utils/ErrorHandler';
 import { UUID } from 'crypto';
 import { rejects } from 'assert';
@@ -15,7 +15,7 @@ class UserService {
       if (!age || typeof Number(age) !== 'number') {
         reject(new ErrorHandler(400, 'Invalid Age'));
       }
-      if (!hobbies || Array.isArray(hobbies)) {
+      if (!Array.isArray(hobbies)) {
         reject(new ErrorHandler(400, 'Invalid data in Hobbies'));
       }
       const newUser: UserWithoutId = {
@@ -24,6 +24,41 @@ class UserService {
         hobbies,
       };
       Users.create(newUser)
+        .then((user: UserData) => {
+          resolve(user);
+        })
+        .catch((e) => {
+          reject(e);
+        });
+    });
+  }
+
+  async update(id: string, data: string) {
+    const { username, age, hobbies } = JSON.parse(data);
+    return new Promise<UserData>((resolve, reject) => {
+      const newUser: RavUser = {
+        id,
+      };
+      if (!id || typeof id !== 'string') {
+        reject(new ErrorHandler(400, 'UserId is invalid'));
+      }
+      if (typeof username !== 'string') {
+        reject(new ErrorHandler(400, 'Invalid User Name'));
+      } else {
+        newUser.username = username;
+      }
+      if (typeof Number(age) !== 'number') {
+        reject(new ErrorHandler(400, 'Invalid Age'));
+      } else {
+        newUser.age = age;
+      }
+      if (!Array.isArray(hobbies)) {
+        reject(new ErrorHandler(400, 'Invalid data in Hobbies'));
+      } else {
+        newUser.hobbies = hobbies;
+      }
+      
+      Users.update(newUser)
         .then((user: UserData) => {
           resolve(user);
         })
@@ -45,7 +80,19 @@ class UserService {
       } else {
         Users.getById(id)
           .then((user) => resolve(user))
-          .catch(() => reject(new ErrorHandler(400, `User with id ${id} not found`)));
+          .catch((e) => reject(e));
+      }
+    });
+  }
+
+  async delete(id: unknown) {
+    return new Promise<string>((resolve, reject) => {
+      if (!id || typeof id !== 'string') {
+        reject(new ErrorHandler(400, 'UserId is invalid'));
+      } else {
+        Users.delite(id)
+          .then(() => resolve(`User ${id} removed`))
+          .catch((e) => reject(e));
       }
     });
   }

@@ -32,13 +32,13 @@ const server = createServer((req, res) => {
       userController.create(req, res, id, data.toString());
       break;
 
-      // case 'PUT':
-      //   UserController.get(req, res, id, data.toString());
-      //   break;
+    case 'PUT':
+      userController.update(req, res, id, data.toString());
+      break;
 
-      // case 'DELETE':
-      //   UserController.get(req, res, id, data.toString());
-      //   break;
+    case 'DELETE':
+      userController.delete(req, res, id, data.toString());
+      break;
       
     default:
       break;

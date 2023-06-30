@@ -11,7 +11,7 @@ export interface UserWithoutId {
 }
 
 export interface RavUser {
-  id?: UUID,
+  id: string,
   username?: string,
   age?: number,
   hobbies?: Array<string>,
