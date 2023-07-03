@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "nodemon",
-    "build": "tsc",
+    "build": "tsc --outFile ./build/index.js",
     "lint": "eslint --ext .js,.ts .",
     "lint:write": "eslint --debug src/ --fix",
     "format": "prettier --ignore-path .gitignore --write \"**/*.+(js|ts|json)\"",
