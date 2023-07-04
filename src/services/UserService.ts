@@ -38,23 +38,31 @@ class UserService {
       const newUser: RavUser = {
         id,
       };
-      if (!id || uuidValidate(id)) {
-        reject(new ErrorHandler(400, 'UserId is invalid'));
-      }
-      if (typeof username !== 'string') {
-        reject(new ErrorHandler(400, 'Invalid User Name'));
+      if (!id || !uuidValidate(id)) {
+        throw new ErrorHandler(400, 'UserId is invalid');
       } else {
-        newUser.username = username;
+        newUser.id = id;
       }
-      if (typeof Number(age) !== 'number') {
-        reject(new ErrorHandler(400, 'Invalid Age'));
-      } else {
-        newUser.age = age;
+      if (username) {
+        if (typeof username !== 'string') {
+          throw new ErrorHandler(400, 'Invalid User Name');
+        } else {
+          newUser.username = username;
+        }
       }
-      if (!Array.isArray(hobbies)) {
-        reject(new ErrorHandler(400, 'Invalid data in Hobbies'));
-      } else {
-        newUser.hobbies = hobbies;
+      if (age) {
+        if (typeof age !== 'number') {
+          throw new ErrorHandler(400, 'Invalid Age');
+        } else {
+          newUser.age = age;
+        }
+      }
+      if (hobbies) {
+        if (!Array.isArray(hobbies)) {
+          throw new ErrorHandler(400, 'Invalid data in Hobbies');
+        } else {
+          newUser.hobbies = hobbies;
+        }
       }
       
       Users.update(newUser)
@@ -74,7 +82,7 @@ class UserService {
 
   async getOne(id: string) {
     return new Promise<UserData>((resolve, reject) => {
-      if (!id || uuidValidate(id)) {
+      if (!id || !uuidValidate(id)) {
         reject(new ErrorHandler(400, 'UserId is invalid'));
       } else {
         Users.getById(id)
@@ -86,7 +94,7 @@ class UserService {
 
   async delete(id: string) {
     return new Promise<string>((resolve, reject) => {
-      if (!id || uuidValidate(id)) {
+      if (!id || !uuidValidate(id)) {
         reject(new ErrorHandler(400, 'UserId is invalid'));
       } else {
         Users.delite(id)

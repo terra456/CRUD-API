@@ -5,9 +5,9 @@ import { RavUser, UserData, UserWithoutId } from 'utils/types';
 class Users {
   users: Array<UserData> = [
     {
-      id: 'UNIQ',
-      username: 'string',
-      age: 5,
+      id: '1ddfc16e-e1f7-4f6d-98f6-dcbe5519123c',
+      username: 'John Smith',
+      age: 35,
       hobbies: ['one', 'two'],
     }
   ];
@@ -53,10 +53,11 @@ class Users {
   };
 
   async update (data: RavUser) {
+    console.log(data);
     return new Promise<UserData>((res, rej) => {
       const index = this.findById(data.id);
       if (index >= 0) {
-        Object.assign(this.users[index], data);
+        this.users[index] = {...this.users[index], ...data};
         res(this.users[index]);
       } else {
         rej(new ErrorHandler(404, `User with id ${data.id} not found`));
@@ -71,7 +72,7 @@ class Users {
         this.users.splice(index, 1);
         res();
       } else {
-        rej();
+        rej(new ErrorHandler(404, `User with id ${id} not found`));
       }
     });
   };

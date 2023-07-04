@@ -14,6 +14,9 @@ const server = createServer((req, res) => {
 
   req.on('end', () => {
     if (!req.url?.startsWith('/api/users')) {
+      res.writeHead(404, { 'Content-Type': 'application/json' });
+      res.write(JSON.stringify('Url is invalid'));
+      res.end();
       return;
     }
 
@@ -48,3 +51,5 @@ const server = createServer((req, res) => {
 server.listen(PORT, hostname, () => {
   console.log(`Server running at http://${hostname}:${PORT}/`);
 });
+
+export default server;
