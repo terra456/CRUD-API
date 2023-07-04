@@ -1,6 +1,5 @@
 import request from 'supertest';
 import server from '../index';
-import { validate as uuidValidate } from 'uuid';
 
 const mockUsers = {
   valid: {
