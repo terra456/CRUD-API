@@ -6,6 +6,7 @@ import { UserData } from '../utils/types';
 class UserController {
 
   async get(req: IncomingMessage, res: ServerResponse, id: string | undefined, data: string | undefined) {
+    data;
     let result;
     if (id) {
       result = UserService.getOne(id);
@@ -66,6 +67,7 @@ class UserController {
   }
 
   async delete(req: IncomingMessage, res: ServerResponse, id: string | undefined, data: string | undefined) {
+    data;
     if (id) {
       UserService.delete(id)
         .then((data: string) => {

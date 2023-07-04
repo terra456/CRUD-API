@@ -1,4 +1,4 @@
-import { UUID, randomUUID } from 'crypto';
+import { v4 as uuidv4 } from 'uuid';
 import ErrorHandler from '../utils/ErrorHandler';
 import { RavUser, UserData, UserWithoutId } from 'utils/types';
 
@@ -14,7 +14,7 @@ class Users {
 
   async create (data: UserWithoutId) {
     const newUser: UserData = {
-      id: randomUUID(),
+      id: uuidv4(),
       ...data
     };
     return new Promise<UserData>((res, rej) => {
@@ -37,7 +37,7 @@ class Users {
     });
   };
 
-  async getById (id: UUID | string) {
+  async getById (id: string) {
     return new Promise<UserData>((res, rej) => {
       const index = this.findById(id);
       if (index >= 0) {
@@ -48,7 +48,7 @@ class Users {
     });
   };
 
-  findById (id: UUID | string) {
+  findById (id: string) {
     return this.users.findIndex((el) => el.id === id);
   };
 

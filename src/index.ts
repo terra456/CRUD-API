@@ -8,7 +8,6 @@ const server = createServer((req, res) => {
   
   const data: Array<Uint8Array> = [];
 
-  // assemble stream of data from request body
   req.on('data', (dataChunk) => {
     data.push(dataChunk);
   });

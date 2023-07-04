@@ -1,8 +1,7 @@
 import Users from '../data/Users';
 import { RavUser, UserData, UserWithoutId } from '../utils/types';
 import ErrorHandler from '../utils/ErrorHandler';
-import { UUID } from 'crypto';
-import { rejects } from 'assert';
+import { validate as uuidValidate } from 'uuid';
 
 class UserService {
 
@@ -39,7 +38,7 @@ class UserService {
       const newUser: RavUser = {
         id,
       };
-      if (!id || typeof id !== 'string') {
+      if (!id || uuidValidate(id)) {
         reject(new ErrorHandler(400, 'UserId is invalid'));
       }
       if (typeof username !== 'string') {
@@ -73,9 +72,9 @@ class UserService {
     return users;
   }
 
-  async getOne(id: unknown) {
+  async getOne(id: string) {
     return new Promise<UserData>((resolve, reject) => {
-      if (!id || typeof id !== 'string') {
+      if (!id || uuidValidate(id)) {
         reject(new ErrorHandler(400, 'UserId is invalid'));
       } else {
         Users.getById(id)
@@ -85,9 +84,9 @@ class UserService {
     });
   }
 
-  async delete(id: unknown) {
+  async delete(id: string) {
     return new Promise<string>((resolve, reject) => {
-      if (!id || typeof id !== 'string') {
+      if (!id || uuidValidate(id)) {
         reject(new ErrorHandler(400, 'UserId is invalid'));
       } else {
         Users.delite(id)
