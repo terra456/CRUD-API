@@ -1,8 +1,10 @@
+/* eslint-disable @typescript-eslint/no-inferrable-types */
 import { createServer } from 'http';
 import userController from './controllers/UserController';
+import 'dotenv/config';
 
-const hostname = '127.0.0.1';
-const PORT = 3000;
+const hostname: string = process.env.HOST || '127.0.0.1';
+const PORT: number = Number(process.env.PORT) || 4000;
 
 const server = createServer((req, res) => {
   

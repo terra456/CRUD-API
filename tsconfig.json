@@ -5,6 +5,7 @@
       "sourceMap": true,
       "outDir": "./build",
       "rootDir": "./src",
+      "allowJs": true,
       /* Strict Type-Checking Options */
       "strict": true,
       "noImplicitAny": true,

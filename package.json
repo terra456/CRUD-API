@@ -40,6 +40,7 @@
   },
   "dependencies": {
     "@types/supertest": "^2.0.12",
+    "dotenv": "^16.3.1",
     "uuid": "^9.0.0"
   }
 }
