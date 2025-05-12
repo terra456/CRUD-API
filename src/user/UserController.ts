@@ -60,6 +60,7 @@ class UserController {
           response.write(JSON.stringify(e.message));
           response.end();
         } else {
+          console.log(e.status, e.message);
           response.writeHead(500, { 'Content-Type': 'application/json'});
           response.write(JSON.stringify(`something wrong`));
           response.end();
@@ -88,9 +89,16 @@ class UserController {
         response.write(JSON.stringify(user));
         response.end();
       } catch (e) {
-        response.writeHead(e.status, { 'Content-Type': 'application/json'});
-        response.write(JSON.stringify(e.message));
-        response.end();
+        if (e instanceof ApiError) {
+          response.writeHead(e.status, { 'Content-Type': 'application/json'});
+          response.write(JSON.stringify(e.message));
+          response.end();
+        } else {
+          console.log(e.status, e.message);
+          response.writeHead(500, { 'Content-Type': 'application/json'});
+          response.write(JSON.stringify(`something wrong`));
+          response.end();
+        }
       }
     });
   }
@@ -109,9 +117,16 @@ class UserController {
       response.writeHead(204, { 'Content-Type': 'application/json'});
       response.end();
     } catch (e) {
-      response.writeHead(e.status, { 'Content-Type': 'application/json'});
-      response.write(JSON.stringify(e.message));
-      response.end();
+      if (e instanceof ApiError) {
+          response.writeHead(e.status, { 'Content-Type': 'application/json'});
+          response.write(JSON.stringify(e.message));
+          response.end();
+        } else {
+          console.log(e.status, e.message);
+          response.writeHead(500, { 'Content-Type': 'application/json'});
+          response.write(JSON.stringify(`something wrong`));
+          response.end();
+        }
     }
     return;
   }
