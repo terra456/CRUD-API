@@ -7,10 +7,7 @@
   "scripts": {
     "start:dev": "nodemon src/index.ts --env-file=.env",
     "start:prod": "webpack --watch --env mode=development --config webpack.config.js",
-    "watch:server": "cross-env NODE_ENV=development webpack --config webpack.config.server.js --watch",
-    "build": "webpack --mode production --config webpack.config.js",
-    "dev": "nodemon build/index.js --watch build",
-    "prod": "nodemon dist/index.js --watch dist",
+    "start:multi": "nodemon src/cluster.ts --env-file=.env",
     "pretest": "npm run lint && tsc -p tsconfig.json --noEmit",
     "test": "NODE_OPTIONS=--experimental-vm-modules jest --verbose --coverage --config jest.config.js",
     "lint": "eslint --debug src/",

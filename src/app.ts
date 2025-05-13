@@ -2,7 +2,6 @@ import { createServer } from 'node:http';
 import UserController from './user/UserController.ts';
 
 const app = createServer((request, response) => {
-
   if (request.url === '/' && request.method === 'GET') {
     response.writeHead(200, { 'Content-Type': 'application/json'});
     response.write(JSON.stringify('Hello World!'));

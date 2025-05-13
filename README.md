@@ -1,3 +1,30 @@
+### Prerequisites
+1. Install [Node.js](https://nodejs.org/en/download/)
+3. Clone repo locally
+4. Go to folder `CRUD-API`
+5. To install all dependencies use [`npm install`]
+
+---
+
+### Test scripts
+
+```bash
+# run application in development mode
+$ npm run start:dev
+
+# starts the build process and then runs the bundled file
+$ npm run start:prod
+
+# starts multiple instances of application using the Node.js Cluster API
+$ npm run start:multi
+
+# test application
+$ npm run test
+```
+
+---
+
+
 ## Implementation details
 
 1. Implemented endpoint `api/users`:
